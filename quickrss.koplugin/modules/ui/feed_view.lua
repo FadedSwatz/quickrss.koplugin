@@ -270,6 +270,12 @@ function QuickRSSUI:_fetch()
                 end
             end
 
+            -- Force GC to close lingering SSL sockets from feed fetching
+            -- and full-text enrichment.  On e-readers the file descriptor
+            -- limit is low; without this, DNS lookups can fail with
+            -- "No address associated with hostname" for later requests.
+            collectgarbage("collect")
+
             if img_settings.thumbnails_enabled then
                 -- Download thumbnails only for NEW articles (have image_url
                 -- but no image_path yet from the cache merge above).
@@ -299,6 +305,8 @@ function QuickRSSUI:_fetch()
                     art.image_path = nil
                 end
             end
+
+            collectgarbage("collect")
 
             if img_settings.article_images_enabled then
                 -- Pre-download inline images only for articles that still have
@@ -410,7 +418,9 @@ function QuickRSSUI:_openMenu()
                     text = _("Fetch articles from all feeds?\nThis may take a moment."),
                     ok_text = _("Fetch"),
                     ok_callback = function()
-                        self:_fetch()
+                        -- Defer to next tick so the ConfirmBox visually
+                        -- closes before the blocking fetch begins.
+                        UIManager:nextTick(function() self:_fetch() end)
                     end,
                 })
             end }},

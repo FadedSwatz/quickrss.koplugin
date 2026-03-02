@@ -46,44 +46,59 @@ local function downloadImage(url)
     local f = io.open(fpath, "rb")
     if f then f:close(); return fname end
 
-    -- Download with redirect following (up to 3 hops).
-    -- ssl.https.request in table form does NOT follow redirects automatically,
-    -- so we check for 301/302/303/307/308 and re-issue the request.
+    -- Download with redirect following (up to 3 hops) and retry on transient
+    -- network errors (DNS hiccups, timeouts) that are common on e-readers.
+    local MAX_RETRIES = 2
     local sink, ok, code, headers
-    local current_url = url
-    for _ = 1, 3 do
-        sink = {}
-        socketutil:set_timeout(
-            socketutil.LARGE_BLOCK_TIMEOUT,
-            socketutil.LARGE_TOTAL_TIMEOUT
-        )
-        ok, code, headers = https.request{
-            url  = current_url,
-            sink = ltn12.sink.table(sink),
-        }
-        socketutil:reset_timeout()
 
-        if not ok then
-            logger.warn("QuickRSS: image download error:", url, code)
-            return nil
+    for attempt = 1, MAX_RETRIES + 1 do
+        local current_url = url
+        local net_err = false
+        for _ = 1, 3 do
+            sink = {}
+            socketutil:set_timeout(
+                socketutil.LARGE_BLOCK_TIMEOUT,
+                socketutil.LARGE_TOTAL_TIMEOUT
+            )
+            ok, code, headers = https.request{
+                url  = current_url,
+                sink = ltn12.sink.table(sink),
+            }
+            socketutil:reset_timeout()
+
+            if not ok then
+                net_err = true
+                break
+            end
+            if code == 301 or code == 302 or code == 303
+            or code == 307 or code == 308 then
+                local location = headers and headers["location"]
+                if not location or location == "" then
+                    logger.warn("QuickRSS: redirect with no Location:", url, code)
+                    return nil
+                end
+                logger.dbg("QuickRSS: image redirect", code, "→", location)
+                current_url = location
+            else
+                break
+            end
         end
-        if code == 301 or code == 302 or code == 303
-        or code == 307 or code == 308 then
-            local location = headers and headers["location"]
-            if not location or location == "" then
-                logger.warn("QuickRSS: redirect with no Location:", url, code)
+
+        if net_err then
+            if attempt <= MAX_RETRIES then
+                logger.dbg("QuickRSS: image retry", attempt, "for:", url, code)
+                os.execute("sleep 1")
+            else
+                logger.warn("QuickRSS: image download error:", url, code)
                 return nil
             end
-            logger.dbg("QuickRSS: image redirect", code, "→", location)
-            current_url = location
+        elseif code ~= 200 then
+            -- HTTP error (4xx/5xx) — no point retrying
+            logger.warn("QuickRSS: image download failed:", url, "HTTP", code)
+            return nil
         else
-            break
+            break  -- success
         end
-    end
-
-    if code ~= 200 then
-        logger.warn("QuickRSS: image download failed:", url, "HTTP", code)
-        return nil
     end
 
     f = io.open(fpath, "wb")
@@ -116,17 +131,23 @@ local function constrainImages(html)
     end)
 end
 
+-- Decode HTML entities in a URL extracted from an src attribute.
+local function decodeUrl(url)
+    return url:gsub("&amp;", "&"):gsub("&lt;", "<"):gsub("&gt;", ">")
+              :gsub("&quot;", '"'):gsub("&apos;", "'")
+end
+
 -- Rewrite every remote <img src="https?://..."> in html to a local filename
 -- relative to IMAGE_DIR.  Handles both double- and single-quoted src values.
 local function localizeImages(html)
     -- double-quoted src
     html = html:gsub('([Ss][Rr][Cc]%s*=%s*)"(https?://[^"]+)"', function(eq, url)
-        local fname = downloadImage(url)
+        local fname = downloadImage(decodeUrl(url))
         return eq .. '"' .. (fname or url) .. '"'
     end)
     -- single-quoted src
     html = html:gsub("([Ss][Rr][Cc]%s*=%s*)'(https?://[^']+)'", function(eq, url)
-        local fname = downloadImage(url)
+        local fname = downloadImage(decodeUrl(url))
         return eq .. "'" .. (fname or url) .. "'"
     end)
     return html

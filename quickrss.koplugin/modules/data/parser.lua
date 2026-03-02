@@ -239,7 +239,9 @@ end
 -- summary (<2000 chars) or contains a "Read full article" link are enriched
 -- with full-text HTML via FiveFilters at fetch time.
 function Parser.fetchAll(feeds, on_success, on_error, on_progress, on_status, cached_by_link)
-    NetworkMgr:runWhenOnline(function()
+    local UIManager = require("ui/uimanager")
+
+    local function _doFetch()
         local all_articles = {}
         local errors       = {}
 
@@ -335,7 +337,28 @@ function Parser.fetchAll(feeds, on_success, on_error, on_progress, on_status, ca
         else
             if on_success then on_success(all_articles, errors) end
         end
-    end)
+    end  -- _doFetch
+
+    if NetworkMgr:isConnected() then
+        -- Already online — skip runWhenOnline entirely so no popup appears.
+        _doFetch()
+    else
+        -- WiFi is off — let NetworkMgr prompt the user to connect.
+        -- Once connected, close the "Connected" InfoMessage (tag = "NetworkMgr")
+        -- before starting the blocking fetch, otherwise it covers our progress.
+        NetworkMgr:runWhenOnline(function()
+            UIManager:nextTick(function()
+                for i = #UIManager._window_stack, 1, -1 do
+                    local w = UIManager._window_stack[i]
+                    if w and w.widget and w.widget.tag == "NetworkMgr" then
+                        UIManager:close(w.widget)
+                        break
+                    end
+                end
+                _doFetch()
+            end)
+        end)
+    end
 end
 
 -- ── parse helpers ─────────────────────────────────────────────────────────────

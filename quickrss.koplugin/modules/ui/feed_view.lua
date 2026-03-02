@@ -493,8 +493,8 @@ function QuickRSSUI:_openAbout()
         text = "QuickRSS v0.1.0\n"
             .. "by qewer33\n\n"
             .. "A fast, standalone RSS reader for KOReader.\n\n"
-            .. "Feeds are stored in quickrss_feeds.opml in KOReader's settings/ "
-            .. "subdirectory. Edit or replace it on "
+            .. "Feeds are stored in quickrss/feeds.opml in your KOReader "
+            .. "data directory. Edit or replace it on "
             .. "your computer to manage subscriptions, or import a file "
             .. "exported from another RSS reader.",
     })

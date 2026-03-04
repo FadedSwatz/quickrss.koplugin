@@ -38,6 +38,7 @@ local DEFAULT_ARTICLE_SETTINGS = {
     card_font_size         = 14,    -- base font size for article cards in feed list
     fulltext_enabled       = true,  -- fetch full article text for truncated feeds
     fulltext_url           = "https://ftr.fivefilters.net/makefulltextfeed.php",
+    custom_dns             = false, -- use custom DNS resolver to bypass system DNS bugs
 }
 
 -- Lazily opened so require("modules/config") doesn't touch the filesystem
@@ -93,6 +94,10 @@ function Config.getArticleSettings()
     if saved and saved.fulltext_enabled ~= nil then
         ft = saved.fulltext_enabled
     end
+    local cdns = DEFAULT_ARTICLE_SETTINGS.custom_dns
+    if saved and saved.custom_dns ~= nil then
+        cdns = saved.custom_dns
+    end
     -- Numeric fields also need nil-checks: `0 or default` would use the default,
     -- which silently breaks max_cache_age_days = 0 ("Never expire").
     local function num(key)
@@ -107,6 +112,7 @@ function Config.getArticleSettings()
         card_font_size         = num("card_font_size"),
         fulltext_enabled       = ft,
         fulltext_url           = (saved and saved.fulltext_url)       or DEFAULT_ARTICLE_SETTINGS.fulltext_url,
+        custom_dns             = cdns,
     }
 end
 

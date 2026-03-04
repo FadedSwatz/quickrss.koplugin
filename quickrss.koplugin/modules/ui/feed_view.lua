@@ -252,6 +252,13 @@ function QuickRSSUI:_fetch()
     -- main loop regains control, which never happens mid-fetch).
     UIManager:forceRePaint()
 
+    -- Install custom DNS resolver if enabled (bypasses broken system DNS
+    -- on some e-readers).  Uninstalled in both success and error callbacks.
+    local dns_active = Config.getArticleSettings().custom_dns
+    if dns_active then
+        require("modules/lib/dns").install()
+    end
+
     local feeds = Config.getFeeds()
 
     -- Build a lookup of previously cached articles so the parser can skip
@@ -351,6 +358,10 @@ function QuickRSSUI:_fetch()
             Cache.cleanOrphanedImages(articles)
             Cache.saveArticles(articles)
 
+            if dns_active then
+                require("modules/lib/dns").uninstall()
+            end
+
             -- If the UI was closed mid-fetch, don't touch the widget tree.
             if self._closed then return end
 
@@ -370,6 +381,9 @@ function QuickRSSUI:_fetch()
             end
         end,
         function(err)
+            if dns_active then
+                require("modules/lib/dns").uninstall()
+            end
             if not self._closed then
                 self:_showStatus(T(_("Could not load feeds:\n%1"), err))
             end

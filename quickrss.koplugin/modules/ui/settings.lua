@@ -126,6 +126,14 @@ function SettingsUI:init()
     local row7 = makeRow(_("Extraction URL"), self.ft_url_val,
                          function() self:_editFulltextUrl() end)
 
+    -- ── Custom DNS ────────────────────────────────────────────────────────────
+    self.dns_val = TextWidget:new{
+        text = self.s.custom_dns and _("On") or _("Off"),
+        face = VALUE_FACE,
+    }
+    local row8 = makeRow(_("Custom DNS routing"), self.dns_val,
+                         function() self:_toggleCustomDns() end)
+
     self.rows_group = VerticalGroup:new{
         align = "left",
         CenterContainer:new{ dimen = Geom:new{ w = popup_w, h = ROW_H }, row1 },
@@ -135,10 +143,11 @@ function SettingsUI:init()
         CenterContainer:new{ dimen = Geom:new{ w = popup_w, h = ROW_H }, row5 },
         CenterContainer:new{ dimen = Geom:new{ w = popup_w, h = ROW_H }, row6 },
         CenterContainer:new{ dimen = Geom:new{ w = popup_w, h = ROW_H }, row7 },
+        CenterContainer:new{ dimen = Geom:new{ w = popup_w, h = ROW_H }, row8 },
     }
 
     -- ── Popup frame ───────────────────────────────────────────────────────────
-    local rows_content_h = ROW_H * 7
+    local rows_content_h = ROW_H * 8
     local popup_h        = title_bar_h + rows_content_h + 2 * Size.border.window
 
     local popup = FrameContainer:new{
@@ -251,6 +260,14 @@ function SettingsUI:_toggleFulltext()
     self.s.fulltext_enabled = not self.s.fulltext_enabled
     Config.saveArticleSettings(self.s)
     self.ft_val:setText(self.s.fulltext_enabled and _("On") or _("Off"))
+    self.rows_group:resetLayout()
+    UIManager:setDirty(self, function() return "ui", self.dimen end)
+end
+
+function SettingsUI:_toggleCustomDns()
+    self.s.custom_dns = not self.s.custom_dns
+    Config.saveArticleSettings(self.s)
+    self.dns_val:setText(self.s.custom_dns and _("On") or _("Off"))
     self.rows_group:resetLayout()
     UIManager:setDirty(self, function() return "ui", self.dimen end)
 end

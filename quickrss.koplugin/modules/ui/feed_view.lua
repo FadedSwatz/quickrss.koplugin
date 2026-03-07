@@ -834,9 +834,14 @@ function QuickRSSUI:_populateItems()
     local start_idx   = (self.show_page - 1) * self.items_per_page + 1
     local end_idx     = math.min(start_idx + self.items_per_page - 1, total)
     local page_count  = end_idx - start_idx + 1
+    local sep_h       = Size.line.thin
     local content_h   = page_count * ITEM_HEIGHT
-                      + math.max(0, page_count - 1) * Size.line.thin
-    self.list_spacer.width = math.max(0, self.list_h - content_h)
+                      + math.max(0, page_count - 1) * sep_h
+    local remaining   = math.max(0, self.list_h - content_h)
+    local gap_count   = math.max(1, page_count - 1)
+    local gap         = (page_count > 1) and math.floor(remaining / gap_count) or 0
+    local extra_px    = (page_count > 1) and (remaining - gap * gap_count) or remaining
+    self.list_spacer.width = extra_px
 
     local art_settings = require("modules/data/config").getArticleSettings()
     for i = start_idx, end_idx do
@@ -886,13 +891,21 @@ function QuickRSSUI:_populateItems()
         }
         table.insert(self.article_list, item)
 
-        -- Thin grey separator between rows (omitted after the last item)
+        -- Dynamic-height separator between rows (omitted after the last item)
         if i < end_idx then
+            local pad_top    = math.floor(gap / 2)
+            local pad_bottom = gap - pad_top
+            if pad_top > 0 then
+                table.insert(self.article_list, VerticalSpan:new{ width = pad_top })
+            end
             table.insert(self.article_list, LineWidget:new{
                 background = require("ffi/blitbuffer").COLOR_LIGHT_GRAY,
-                dimen      = Geom:new{ w = self.item_width, h = Size.line.thin },
+                dimen      = Geom:new{ w = self.item_width, h = sep_h },
                 style      = "solid",
             })
+            if pad_bottom > 0 then
+                table.insert(self.article_list, VerticalSpan:new{ width = pad_bottom })
+            end
         end
     end
 

